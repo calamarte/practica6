@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class Tar {
@@ -14,11 +13,19 @@ class Tar {
 
     // Torna un array amb la llista de fitxers que hi ha dins el TAR
     public String[] list()throws Exception {
-       return null;
+
+        String[] resultado = new String[this.archivos.length];
+        for (int i = 0; i < this.archivos.length; i++) {
+           resultado[i] = this.archivos[i].toString();
+        }
+       return resultado;
     }
     // Torna un array de bytes amb el contingut del fitxer que té per nom
 // igual a l'String «name» que passem per paràmetre
     public byte[] getBytes(String name) {
+        for (int i = 0; i < this.archivos.length; i++) {
+            if (name.equals(this.archivos[i].toString()))return this.archivos[i].getInfo();
+        }
         return null;
     }
     // Expandeix el fitxer TAR dins la memòria
@@ -29,7 +36,6 @@ class Tar {
         while (true){
             StringBuilder sb = new StringBuilder();
             byte[] nombre = new byte[100];
-            byte[] longitud = new byte[12];
             String name;
             inputStream.read(nombre);
 
@@ -38,10 +44,9 @@ class Tar {
 
             if (contador == nombre.length)break;
 
-            for (int i = 0; i < nombre.length; i++)sb.append((char) nombre[i]);
-
-            System.out.println(sb.toString());
-
+            for (int i = 0; i < nombre.length; i++) {
+                if (nombre[i] != 0) sb.append((char) nombre[i]);
+            }
             name = sb.toString();
             inputStream.skip(24);
 
@@ -51,18 +56,17 @@ class Tar {
                 int b = inputStream.read();
                 if (b > 0) sb.append((char) b);
             }
+
             int tam = Integer.parseInt(sb.toString(), 8);
-            System.out.println("Tamaño: " + tam);
 
 
             inputStream.skip(376);
-            byte[] info = new byte[Integer.parseInt(sb.toString(),8)];
+            byte[] info = new byte[tam];
             inputStream.read(info);
 
-            System.out.println(Arrays.toString(info));
 
             lista.add(new ArchivoInterno(name,info));
-            inputStream.skip((long) getResto(Integer.parseInt(sb.toString(),8)));
+            inputStream.skip((long) getResto(tam));
 
         }
         this.archivos = lista.toArray(new ArchivoInterno[lista.size()]);
