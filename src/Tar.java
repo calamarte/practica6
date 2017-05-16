@@ -28,6 +28,7 @@ class Tar {
         }
         return null;
     }
+
     // Expandeix el fitxer TAR dins la memòria
     public void expand()throws Exception {
         List<ArchivoInterno> lista = new ArrayList<>();
