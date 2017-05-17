@@ -1,5 +1,7 @@
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.junit.Test;
 
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
@@ -45,6 +47,20 @@ public class TarTest {
         assertEquals("AE698319B876FF2CA86608A1C22ACAFD", md5(data));
 
     }
+
+//    @Test
+//    public void test2() throws Exception {
+//        Tar tar = new Tar("/tmp/archive2.tar");
+//        tar.expand();
+//
+//        InputStream is = tar.getInputStream("linux.png");
+//        ByteOutputStream bos = new ByteOutputStream();
+//        for(int i; (i = is.read()) != -1; ) {
+//            bos.write(i);
+//        }
+//        bos.close();
+//        assertEquals("D09ADE6D39256A31EDD14BE9F45713EA", md5(bos.toByteArray()));
+//    }
 
     private String md5(byte[] data) throws Exception {
         MessageDigest md = MessageDigest.getInstance("MD5");

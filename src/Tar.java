@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Tar {
@@ -77,5 +78,9 @@ class Tar {
         while (total > 512) total -= 512;
         total = 512 - total;
         return total;
+    }
+
+    public ArchivoInterno[] getArchivos() {
+        return archivos;
     }
 }
