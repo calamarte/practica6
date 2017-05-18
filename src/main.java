@@ -37,14 +37,14 @@ public class main {
                     continue;
                 }
 
-                if (comando[0].equals("h")){
+                if (comando[0].equals("help")){
                     System.out.print(
                             "load : carga el fichero tar en memoria\n" +
                                     "load [dirección del tar]\n" +
                                     "list : muestra una lista de los nombres de todos los archivos dentro del .tar previamente cargado en memoria\n" +
-                                    "extract : extrae en un fichero el archivo en el directorio deseado\n" +
+                                    "extract : extrae en un fichero el archivo en la ruta deseada\n" +
                                     "extract [all | nombre del archivo] [ruta de destino]\n" +
-                                    "h : muestra una lista de funciones \n" +
+                                    "help : muestra una lista de funciones \n" +
                                     "quit : finaliza el programa \n"
                     );
                     continue;
@@ -73,25 +73,26 @@ public class main {
 
         File directorio = new File(comando[2]);
         File arch;
+        if (!directorio.exists()) directorio.mkdir();
+        FileOutputStream salida;
 
         if (!comando[1].equals("all")) {
-            if (!directorio.exists()) directorio.mkdir();
             arch = new File(directorio.getAbsolutePath(),comando[1]);
             arch.createNewFile();
-            FileOutputStream salida = new FileOutputStream(arch);
+            salida = new FileOutputStream(arch);
             salida.write(t.getBytes(comando[1]));
             salida.close();
 
         }else {
+            ArchivoInterno[] lista = t.getArchivos();
+            for (int i = 0; i < lista.length; i++) {
+                arch = new File(directorio.getAbsolutePath(),lista[i].toString());
+                arch.createNewFile();
+                salida = new FileOutputStream(arch);
+                salida.write(lista[i].getInfo());
+                salida.close();
+            }
 
         }
-
-//            ArchivoInterno [] lista = t.getArchivos();
-//            for (int i = 0; i < lista.length; i++) {
-//
-//            }
-//        }else {
-//
-//        }
     }
 }

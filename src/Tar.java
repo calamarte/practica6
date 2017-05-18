@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 class Tar {
@@ -10,7 +9,10 @@ class Tar {
     private ArchivoInterno[] archivos;
 
     // Constructor
-    public Tar(String filename) {this.tar = new File(filename);}
+    public Tar(String filename) throws Exception {//crear excepción
+        if (!filename.contains(".tar")) throw new Exception();
+        this.tar = new File(filename);
+    }
 
     // Torna un array amb la llista de fitxers que hi ha dins el TAR
     public String[] list()throws Exception {
