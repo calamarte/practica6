@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +7,13 @@ class Tar {
     private ArchivoInterno[] archivos;
 
     // Constructor
-    public Tar(String filename) throws Exception {//crear excepción
-        if (!filename.contains(".tar")) throw new Exception();
+    public Tar(String filename) throws NoTarFoundException {//crear excepción
+        if (!filename.contains(".tar")) throw new NoTarFoundException();
         this.tar = new File(filename);
     }
 
     // Torna un array amb la llista de fitxers que hi ha dins el TAR
-    public String[] list()throws Exception {
+    public String[] list(){
 
         String[] resultado = new String[this.archivos.length];
         for (int i = 0; i < this.archivos.length; i++) {
@@ -33,7 +31,7 @@ class Tar {
     }
 
     // Expandeix el fitxer TAR dins la memòria
-    public void expand()throws Exception {
+    public void expand() throws Exception {
         List<ArchivoInterno> lista = new ArrayList<>();
         InputStream inputStream = new FileInputStream(this.tar);
 

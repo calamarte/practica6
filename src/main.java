@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Scanner;
 
@@ -52,6 +53,8 @@ public class main {
                 if (comando[0].equals("quit"))break;
                 else System.out.println("Comando no encontrado");
 
+            }catch (NoTarFoundException e){
+                System.out.println("No existe ningun archivo .tar en esta ruta");
             }catch (Exception e){
                 System.out.println("Archivo no encontrado");
             }
