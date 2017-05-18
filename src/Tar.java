@@ -83,4 +83,8 @@ class Tar {
     public ArchivoInterno[] getArchivos() {
         return archivos;
     }
+
+    public File getTar() {
+        return tar;
+    }
 }

@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 
 /**
@@ -33,8 +34,7 @@ public class main {
 
                 if (comando[0].equals("extract") && load){
                     extract(comando,t);
-
-                    //t.getBytes()
+                    continue;
                 }
 
                 if (comando[0].equals("h")){
@@ -43,13 +43,13 @@ public class main {
                                     "load [dirección del tar]\n" +
                                     "list : muestra una lista de los nombres de todos los archivos dentro del .tar previamente cargado en memoria\n" +
                                     "extract : extrae en un fichero el archivo en el directorio deseado\n" +
-                                    "extract [all | nombre del archivo] [ruta de destino] <create-[nombre de directorio]>\n" +
+                                    "extract [all | nombre del archivo] [ruta de destino]\n" +
                                     "h : muestra una lista de funciones \n" +
                                     "quit : finaliza el programa \n"
                     );
                     continue;
                 }
-                if (aux.equals("quit"))break;
+                if (comando[0].equals("quit"))break;
                 else System.out.println("Comando no encontrado");
 
             }catch (Exception e){
@@ -58,13 +58,40 @@ public class main {
         }
     }
     static void extract(String[] comando,Tar t)throws Exception{
-        if (comando[1].equals("all")){
-            ArchivoInterno [] lista = t.getArchivos();
-            for (int i = 0; i < lista.length; i++) {
-
+            if (comando.length > 3){
+               String[] aux = new String[3];
+               String s = "";
+               aux[0] = comando[0];
+                for (int i = 1; i <comando.length-1 ; i++) {
+                    if (i != 1) s += " "+comando[i];
+                    else s += comando[i];
+                }
+                aux[1] = s;
+                aux[2] = comando[comando.length-1];
+                comando = aux;
             }
+
+        File directorio = new File(comando[2]);
+        File arch;
+
+        if (!comando[1].equals("all")) {
+            if (!directorio.exists()) directorio.mkdir();
+            arch = new File(directorio.getAbsolutePath(),comando[1]);
+            arch.createNewFile();
+            FileOutputStream salida = new FileOutputStream(arch);
+            salida.write(t.getBytes(comando[1]));
+            salida.close();
+
         }else {
 
         }
+
+//            ArchivoInterno [] lista = t.getArchivos();
+//            for (int i = 0; i < lista.length; i++) {
+//
+//            }
+//        }else {
+//
+//        }
     }
 }
