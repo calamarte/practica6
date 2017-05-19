@@ -76,7 +76,7 @@ public class main {
 
         File directorio = new File(comando[2]);
         File arch;
-        if (!directorio.exists()) directorio.mkdir();
+        if (!directorio.exists()) directorio.mkdirs();
         FileOutputStream salida;
 
         if (!comando[1].equals("all")) {

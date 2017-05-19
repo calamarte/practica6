@@ -54,7 +54,8 @@ public class TarTest {
 //        tar.expand();
 //
 //        InputStream is = tar.getInputStream("linux.png");
-//        ByteOutputStream bos = new ByteOutputStream();
+//        ByteOutputStream bos = new Byte
+// OutputStream();
 //        for(int i; (i = is.read()) != -1; ) {
 //            bos.write(i);
 //        }
