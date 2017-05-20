@@ -1,5 +1,6 @@
 /**
- * Created by calamarte on 16/05/2017.
+ * Clase que contiene cada la información de cada uno del os archivos del tar
+ * guardan el nombre y los bytes que componen el archivo
  */
 public class ArchivoInterno {
     private String name;
