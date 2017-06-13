@@ -14,7 +14,7 @@ class Tar {
 
     // Torna un array amb la llista de fitxers que hi ha dins el TAR
     public String[] list(){
-        //Crea un array de Strings y lo lleno con los nombre de los archivos
+        //Crea un array de Strings y lo lleno con los nombres de los archivos
         String[] resultado = new String[this.archivos.length];
         for (int i = 0; i < this.archivos.length; i++) {
            resultado[i] = this.archivos[i].toString();
@@ -22,7 +22,7 @@ class Tar {
        return resultado;
     }
     // Torna un array de bytes amb el contingut del fitxer que té per nom
-// igual a l'String «name» que passem per paràmetre
+    // igual a l'String «name» que passem per paràmetre
     public byte[] getBytes(String name) {
         //Comprueba cual es el nombre del archivo que coincide y cuando lo hace devuelve su array de bytes
         for (int i = 0; i < this.archivos.length; i++) {
